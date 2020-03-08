@@ -1,0 +1,8 @@
+*.pyc
+creds.json
+.idea/
+final.json
+googleCredentials.json
+*.token
+*.pickle
+*.json
