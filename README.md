@@ -1,4 +1,4 @@
-# SakaiBot
+# Sakai with Google Calendar Integration
 ### Objective:
 Use this bot to act as a middle man with the Sakai web platform and integrate with google products. As of right now this can only be ran locally.
 However, this project will be ported over to be used as a service in the cloud. 
