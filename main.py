@@ -43,14 +43,9 @@ class main():
         self.classes = classes
         self.contents = ""
 
-
-    def permissive_json_loads(self):
-        with open(self.text) as cred:
-            self.info = json.load(cred)
-
     """
     get calendar from sakai and output to a json file and return a json object
-    exlcude classes you are not enrolled in, and assignments that have already passed
+    exclude classes you are not enrolled in, and assignments that have already passed
     """
     def getCal(self):
         self.sak = SakaiPy.SakaiPy(self.info)
@@ -66,11 +61,11 @@ class main():
 
         # a is the counter
         # b is the json object
-        """
-        loop through and add to json file if it matches the classes you define above
-        """
+
+        # loop through and add to json file if it matches the classes you define above
         for a, b in enumerate(self.calJson):
-            # loops through classes to check for dupes
+            # since Sakai returns classes you have taken in last semester you will need to define the classses you
+            # are currently enrolled in.
             for i in range(len(self.classes)):
                 temp = b["firstTime"]
                 # determines if it matches your classes and if the assignment is late.
@@ -89,30 +84,23 @@ class main():
                 else:
                     continue
 
-
-        """
-        writing to the json file iterated through by the above loop
-        """
         self.cal = assDict
-        # with open('parsed.json', 'w') as f:
-        #     json.dump(assDict, f, indent=2)
-        #     f.close()
+
 
     def getAssign(self):
         self.sak = SakaiPy.SakaiPy(self.info)
         self.assign = self.sak.get_assignment()
         self.assignDict = self.assign.getAllMyAssignments()
         self.assignDict = self.assignDict["assignment_collection"]
-        temp = []
-        # determine if there are duplicate assignemts
-        # todo: clean this up
         assignDict = {}
+
         for a, b in enumerate(self.assignDict):
             try:
                 if self.cal[b["id"]]:
                     continue
+
             except KeyError as err:
-                # if it is not  late add to json
+                # if it is not late add to json
                 if not dateDict.assignIsLate(b["dueTimeString"], b["id"]):
                     due, time = dateDict.returnDateAndTimeAssign(b["dueTimeString"])
                     assignInfo = {
@@ -131,16 +119,22 @@ class main():
 
         self.contents = assignDict
 
+    # load the JSON file into self.info
+    # this is a getter method for the creds file.
+    def permissive_json_loads(self):
+        with open(self.text) as cred:
+            self.info = json.load(cred)
+
+
 # define the name of your classes to be scanned through and given a JSON file
 classes = ["COMSC.492.01-20/SP Integ Senior Design II"]
-# classes = []
 jason = main(classes)
 jason.permissive_json_loads()
 jason.getCal()
 jason.getAssign()
 
 combineJson.start(jason.contents, jason.cal)
-service = google_int.creds()
-google_int.Getcalendar(service)
-google_int.checkDuplicates(service)
+ser = google_int.creds()
+google_int.Getcalendar(ser)
+google_int.checkDuplicates(ser)
 
