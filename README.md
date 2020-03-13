@@ -30,7 +30,7 @@ However, this project will be ported over to be used as a service in the cloud.
 ```
 - ```pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib```
 - ```pip install pickle```
-- (Go Here)[https://developers.google.com/calendar/quickstart/python] 
+- [Go Here](https://developers.google.com/calendar/quickstart/python) 
 - Click "Enable the Google Calendar API"
 - Download the Client Configuration file for your google account
 - Rename the file to "googleCredentials.json" and place it in the same directory as this project
