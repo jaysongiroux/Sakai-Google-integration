@@ -7,14 +7,15 @@
 # defining imports needed for this project
 
 # todo:
-#
+#   pull a list from the entire returned object of assignments and cal and make a list of the classes
+#     allow the user to choose which classes they are apart of
 
 
 from SakaiPy import SakaiPy
 import json
 import dateDict
 import combineJson
-import google_int
+from google_int import integration
 
 class main():
     def __init__(self, classes):
@@ -49,8 +50,6 @@ class main():
     """
     def getCal(self):
         self.sak = SakaiPy.SakaiPy(self.info)
-        # used for debugging
-        # print(self.sak.session.get_current_user_info())
         self.calendar = self.sak.get_calendar()
         self.calDict = self.calendar.getAllMyEvents()
         self.calStrJson = json.dumps(self.calDict, ensure_ascii=False)
@@ -128,13 +127,17 @@ class main():
 
 # define the name of your classes to be scanned through and given a JSON file
 classes = ["COMSC.492.01-20/SP Integ Senior Design II"]
+
 jason = main(classes)
 jason.permissive_json_loads()
 jason.getCal()
 jason.getAssign()
 
+# todo: soon this will no longer be needed since local file systems will not be used
 combineJson.start(jason.contents, jason.cal)
-ser = google_int.creds()
-google_int.Getcalendar(ser)
-google_int.checkDuplicates(ser)
+
+inter = integration()
+integration.creds(inter)
+integration.Getcalendar(inter)
+integration.checkDuplicates(inter)
 

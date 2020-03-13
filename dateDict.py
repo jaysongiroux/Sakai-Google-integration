@@ -17,10 +17,10 @@ def combineTime(dateString):
     return str(seperateHour(dateString)) + ":" + str(seperateMin(dateString))
 
 def dateFormat(dateString):
-    return seperateYear(dateString)+"-"+dict(dateString)+"-"+seperateDay(dateString)
+    return seperateYear(dateString)+"-"+str(dict(dateString))+"-"+seperateDay(dateString)
 
 def dateSlashes(dateString):
-    return dict(dateString),seperateDay(dateString),seperateYear(dateString)
+    return str(dict(dateString)),seperateDay(dateString),seperateYear(dateString)
 
 
 # return false if the assignment is not late
@@ -132,12 +132,12 @@ def returnDateAndTimeAssign(dateString):
     month = re.search("[0-9][0-9]",str(month)).group()
     day = re.search("-[0-9][0-9]T",dateString).group()
     day = re.search("[0-9][0-9]",str(day)).group()
+
+    time = re.search("[0-9]{2}:[0-9]{2}:[0-9]{2}", dateString).group()
+    hour = re.search("^[0-9]{2}:", time).group().strip(":")
+    minute = re.search(":[0-9]{2}:", time).group().strip(":")
+
     dt = str(year)+"-"+str(month)+"-"+str(day)
-
-    time = re.search("[0-9]{2}:[0-9]{2}:[0-9]{2}",dateString).group()
-    hour = re.search("^[0-9]{2}:",time).group().strip(":")
-    minute = re.search(":[0-9]{2}:",time).group().strip(":")
-
     time = str(hour) + ":" + str(minute)
 
     return dt, time
