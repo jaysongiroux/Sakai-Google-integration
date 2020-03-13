@@ -1,3 +1,5 @@
+*.PYC
+*.Pyc
 *.pyc
 creds.json
 .idea/
