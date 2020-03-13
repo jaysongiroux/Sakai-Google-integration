@@ -111,17 +111,18 @@ class integration():
                     print("google event", self.tempGoogle["summary"])
                     break
 
-            if dupe is False:
-                self.tempPortal = portal[b]
-                # calling prepare event to add it to the google calendar
-                self.prepareEvent()
-
-            # no existing elements in the google calendar
             if len(google) == 0:
                 colorify.prGreen("DEBUG: No Events In Google Found")
                 self.tempPortal = portal[b]
                 # calling prepare event to add it to the google calendar
                 self.prepareEvent()
+
+            elif dupe is False:
+                self.tempPortal = portal[b]
+                # calling prepare event to add it to the google calendar
+                self.prepareEvent()
+
+
 
     # adding events to the google calendar
     def prepareEvent(self):
