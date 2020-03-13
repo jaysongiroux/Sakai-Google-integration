@@ -22,6 +22,10 @@ class integration():
         self.info = None
         self.notifacationTime = 60
 
+        self.tempPortal = None
+        self.tempGoogle = None
+
+
     def creds(self):
         print("Getting Google Credentials...")
         """
@@ -95,49 +99,49 @@ class integration():
         for a, b in enumerate(portal):
             dupe = False
             for c, d in enumerate(google):
-                tempGoogle = google[d]
-                tempPortal = portal[b]
+                self.tempGoogle = google[d]
+                self.tempPortal = portal[b]
 
                 # checks if there are any duplicates
-                if str(tempPortal["assignmentId"]) in str(tempGoogle["summary"]):
+                if str(self.tempPortal["assignmentId"]) in str(self.tempGoogle["summary"]):
                     dupe = True
-                    dup.append(tempPortal["assignmentId"])
+                    dup.append(self.tempPortal["assignmentId"])
                     colorify.prRed("--- DUPLICATE DETECTED ---")
-                    print("portal event: ", tempPortal["assignmentId"], " - ", tempPortal["entityTitle"])
-                    print("google event", tempGoogle["summary"])
+                    print("portal event: ", self.tempPortal["assignmentId"], " - ", self.tempPortal["entityTitle"])
+                    print("google event", self.tempGoogle["summary"])
                     break
 
             if dupe is False:
+                self.tempPortal = portal[b]
                 # calling prepare event to add it to the google calendar
-                self.prepareEvent(tempPortal)
+                self.prepareEvent()
 
             # no existing elements in the google calendar
             if len(google) == 0:
                 colorify.prGreen("DEBUG: No Events In Google Found")
-                tempPortal = portal[b]
+                self.tempPortal = portal[b]
                 # calling prepare event to add it to the google calendar
-                self.prepareEvent(tempPortal)
+                self.prepareEvent()
 
     # adding events to the google calendar
-    def prepareEvent(self, tempPortal):
+    def prepareEvent(self):
         # how long the event will show up in google
         length = 5
-        summary = tempPortal["entityTitle"] +" Assignment ID: "+ tempPortal["assignmentId"]
-        startTime = tempPortal["due"] + "T" +tempPortal["dueTime"]+":00.00"
+        summary = self.tempPortal["entityTitle"] +" Assignment ID: "+ self.tempPortal["assignmentId"]
+        startTime = self.tempPortal["due"] + "T" +self.tempPortal["dueTime"]+":00.00"
 
-        mins = re.search(":[0-9]{2}",tempPortal["dueTime"]).group().strip(":")
+        mins = re.search(":[0-9]{2}",self.tempPortal["dueTime"]).group().strip(":")
         mins = int(mins) + length
 
         # adds a 0 if the minutes number is less than 10 to fit the syntax google expects
         if mins < 10:
             mins = str("0")+str(mins)
+        hours = re.search("[0-9]{2}:",self.tempPortal["dueTime"]).group()
+        endTime = self.tempPortal["due"]+"T"+str(hours)+str(mins)+":00.00"
 
-        hours = re.search("[0-9]{2}:",tempPortal["dueTime"]).group()
-        endTime = tempPortal["due"]+"T"+str(hours)+str(mins)+":00.00"
-
-        event = {
+        self.event = {
             'summary': summary,
-            'description': tempPortal["entityTitle"],
+            'description': self.tempPortal["entityTitle"],
             'start': {
                 'dateTime': startTime,
                 'timeZone': 'America/New_York',
@@ -155,12 +159,13 @@ class integration():
         }
 
         # adding the above object in the google calendar
-        self.insertEvent(self,event)
+        self.insertEvent()
 
-    def insertEvent(self, obj):
-        message = "Inserting event: "+ str(obj["summary"])
+    def insertEvent(self):
+        message = "Inserting event: "+ str(self.event["summary"])
         colorify.prGreen(message)
+
         event = self.ser.events().insert(
             calendarId='primary',
-            body=obj
+            body=self.event
         ).execute()
