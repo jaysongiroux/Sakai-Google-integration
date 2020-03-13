@@ -1,0 +1,32 @@
+Metadata-Version: 1.1
+Name: SakaiPy
+Version: 2.3.0
+Summary: Python interface to the Sakai RESTful API's
+Home-page: https://github.com/willkara/SakaiPy
+Author: William Karavites
+Author-email: wkaravites@gmail.com
+License: MIT
+Download-URL: https://github.com/willkara/SakaiPy/archive/2.2.1.tar.gz
+Description: UNKNOWN
+Keywords: Sakai Education RESTful API
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Education
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
