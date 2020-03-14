@@ -133,10 +133,8 @@ jason.permissive_json_loads()
 jason.getCal()
 jason.getAssign()
 
-# todo: soon this will no longer be needed since local file systems will not be used
-combineJson.start(jason.contents, jason.cal)
-
-inter = integration()
+portal = combineJson.start(jason.contents, jason.cal)
+inter = integration(portal)
 integration.creds(inter)
 integration.Getcalendar(inter)
 integration.checkDuplicates(inter)

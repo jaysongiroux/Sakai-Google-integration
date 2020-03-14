@@ -5,7 +5,9 @@ to integrate with
 import json
 
 def start(a,b):
-    finalJson = "final.json"
+    # finalJson = "final.json"
     a.update(b)
-    with open(finalJson,'w') as f:
-        json.dump(a,f,indent = 2)
+    # with open(finalJson,'w') as f:
+    #     json.dump(a,f,indent = 2)
+    #
+    return a
