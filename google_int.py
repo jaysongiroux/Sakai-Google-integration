@@ -14,16 +14,21 @@ import re
 import colorify
 
 class integration():
-    def __init__(self):
+    def __init__(self, portal):
         self.creds = None
         self.SCOPES = ["https://www.googleapis.com/auth/calendar"]
         self.ser = None
         self.events = None
         self.info = None
+        # mins before the assignment is due
         self.notifacationTime = 60
+
+        # results pulled from google calendar
+        self.googleCalenResults = 200
 
         self.tempPortal = None
         self.tempGoogle = None
+        self.portalInfo = portal
 
 
     def creds(self):
@@ -58,9 +63,10 @@ class integration():
         # define new object for date lib
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-        print('Getting the upcoming 100 events')
+        # print('Getting the upcoming 100 events')
+        # todo: instead of pulling X events, pull events from now to the last date in the portal assignments
         events_result = self.ser.events().list(calendarId='primary', timeMin=now,
-                                            maxResults=100, singleEvents=True,
+                                            maxResults=self.googleCalenResults, singleEvents=True,
                                             orderBy='startTime').execute()
 
         self.events = events_result.get('items', [])
@@ -78,22 +84,11 @@ class integration():
             }
             self.info[b["id"]] = dict
 
-        # todo: remove this writing to a json file and just return the json object
-        # writing to json file, no longer needed
-        with open("googleCalparsed.json", 'w') as f:
-            json.dump(self.info, f, indent=2)
-
         return self.info
 
     def checkDuplicates(self):
-        # todo: should not have to write to json file then read the same file. have json
-        # have json objects passed to this method or objects in init
-
-        with open("googleCalparsed.json",'r') as f:
-            google = json.load(f)
-
-        with open("final.json",'r') as a:
-            portal = json.load(a)
+        google = self.info
+        portal = self.portalInfo
 
         dup = []
         for a, b in enumerate(portal):
