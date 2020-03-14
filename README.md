@@ -37,6 +37,10 @@ However, this project will be ported over to be used as a service in the cloud.
 - Run: ```python main.py```
 - The setup wizard will walk you through how to setup with google apps.
  
+ ###DJANGO
+ - [Django set up](https://docs.djangoproject.com/en/3.0/topics/install/#install-apache-and-mod-wsgi)
+ 
+ 
  ### Additional Notes:
  - When you run this for the first time it is going to open a web browser and have you log in to the google account.
  - Some schools do not allow this bot to be run on their internet. This has been tested outside of the school's internet. 
