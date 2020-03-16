@@ -25,7 +25,7 @@ However, this project will be ported over to be used as a service in the cloud.
 {
   "username": "username",
   "password": "password",
-  "baseurl": "schoolPortalURL",
+  "baseurl": "schoolPortalURL"
 }
 ```
 - ```pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib```
