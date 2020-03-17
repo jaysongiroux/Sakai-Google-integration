@@ -9,13 +9,18 @@
 # todo:
 #   pull a list from the entire returned object of assignments and cal and make a list of the classes
 #     allow the user to choose which classes they are apart of
-
+#   optimize adding to google calendar by sending single json object instead of multiple single json objects
+#   check for assignemnts and cal assignemts that have a changed date or changed time, cancel the originally scheduled event and reschedule with new time/date
+#   worst case scenario, time is at 10.719 seconds for initial run to add all assignments. need to cut down to 5 seconds.
 
 from SakaiPy import SakaiPy
 import json
 import dateDict
 import combineJson
 from google_int import integration
+import threading
+import time
+import colorify
 
 class main():
     def __init__(self, classes):
@@ -92,7 +97,7 @@ class main():
         self.assignDict = self.assign.getAllMyAssignments()
         self.assignDict = self.assignDict["assignment_collection"]
         assignDict = {}
-
+        print(self.assignDict)
         for a, b in enumerate(self.assignDict):
             try:
                 if self.cal[b["id"]]:
@@ -118,6 +123,9 @@ class main():
 
         self.contents = assignDict
 
+    def returnClassList(self):
+        return True
+
     # load the JSON file into self.info
     # this is a getter method for the creds file.
     def permissive_json_loads(self):
@@ -128,14 +136,27 @@ class main():
 # define the name of your classes to be scanned through and given a JSON file
 classes = ["COMSC.492.01-20/SP Integ Senior Design II"]
 
+start_time = time.time()
+
 jason = main(classes)
 jason.permissive_json_loads()
-jason.getCal()
-jason.getAssign()
+
+t1 = threading.Thread(target=jason.getCal())
+t2 = threading.Thread(target=jason.getAssign())
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
 
 portal = combineJson.start(jason.contents, jason.cal)
 inter = integration(portal)
+
 integration.creds(inter)
 integration.Getcalendar(inter)
 integration.checkDuplicates(inter)
 
+end_time = time.time()
+time_lapsed = end_time - start_time
+m = "TIME LAPSED: "+str(time_lapsed)+" s"
+colorify.prRed(m)

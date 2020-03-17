@@ -87,6 +87,7 @@ class integration():
         return self.info
 
     def checkDuplicates(self):
+        # info is the events already in the google cal
         google = self.info
         portal = self.portalInfo
 
@@ -120,6 +121,7 @@ class integration():
 
 
     # adding events to the google calendar
+    #todo:  possible to have this as a subtask/ thread so it does not delay the loop from checkDup
     def prepareEvent(self):
         # how long the event will show up in google
         length = 5
@@ -153,7 +155,7 @@ class integration():
                 ],
             },
         }
-
+        # todo: start the thread here
         # adding the above object in the google calendar
         self.insertEvent()
 

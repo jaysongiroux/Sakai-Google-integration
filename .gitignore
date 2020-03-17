@@ -8,3 +8,6 @@ googleCredentials.json
 *.token
 *.pickle
 *.json
+SakaiPy/SakaiTools/__pycache__/
+SakaiPy/SakaiTools/__pycache__/
+SakaiPy/__pycache__/
