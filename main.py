@@ -47,6 +47,7 @@ class main():
         self.assignCal = ""
 
         self.classes = classes
+        self.fetchedClasses = []
         self.contents = ""
 
     """
@@ -67,7 +68,13 @@ class main():
         # b is the json object
 
         # loop through and add to json file if it matches the classes you define above
+        counter = 0
         for a, b in enumerate(self.calJson):
+            # appending to self.fetchedclasses if any class are new
+            if a == 0 or not self.fetchedClasses[counter-1] == b["siteName"]:
+                self.fetchedClasses.append(b["siteName"])
+                counter = counter + 1
+
             # since Sakai returns classes you have taken in last semester you will need to define the classses you
             # are currently enrolled in.
             for i in range(len(self.classes)):
@@ -87,17 +94,18 @@ class main():
                     assDict[b['assignmentId']] = info
                 else:
                     continue
-
         self.cal = assDict
+        # self.returnClassList()
 
-
+    """
+    fetches the assignments from sakai and stores them in self.contents
+    """
     def getAssign(self):
         self.sak = SakaiPy.SakaiPy(self.info)
         self.assign = self.sak.get_assignment()
         self.assignDict = self.assign.getAllMyAssignments()
         self.assignDict = self.assignDict["assignment_collection"]
         assignDict = {}
-        print(self.assignDict)
         for a, b in enumerate(self.assignDict):
             try:
                 if self.cal[b["id"]]:
@@ -123,8 +131,20 @@ class main():
 
         self.contents = assignDict
 
+    """
+    calendar returns classes that you are not enrolled in. this method will look through the returns object 
+    from the calendar and create a list of all the classes it pulled
+    retuned list from cal = self.cal
+    """
     def returnClassList(self):
-        return True
+        # a = counter, b = object
+        for a, b in enumerate(self.calJson):
+            print("printing b")
+            print(b)
+            temp = self.calJson[b]
+            self.fetchedClasses.append(temp["siteName"])
+
+        print("Fetched classes from Calendar: ", self.fetchedClasses)
 
     # load the JSON file into self.info
     # this is a getter method for the creds file.
@@ -158,5 +178,7 @@ integration.checkDuplicates(inter)
 
 end_time = time.time()
 time_lapsed = end_time - start_time
+m = "Classes detected: " + str(jason.fetchedClasses)
+colorify.prRed(m)
 m = "TIME LAPSED: "+str(time_lapsed)+" s"
 colorify.prRed(m)
