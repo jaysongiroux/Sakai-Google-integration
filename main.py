@@ -7,9 +7,6 @@
 # defining imports needed for this project
 
 # todo:
-#   pull a list from the entire returned object of assignments and cal and make a list of the classes
-#     allow the user to choose which classes they are apart of
-#   optimize adding to google calendar by sending single json object instead of multiple single json objects
 #   check for assignemnts and cal assignemts that have a changed date or changed time, cancel the originally scheduled event and reschedule with new time/date
 #   worst case scenario, time is at 10.719 seconds for initial run to add all assignments. need to cut down to 5 seconds.
 
@@ -179,6 +176,6 @@ integration.checkDuplicates(inter)
 end_time = time.time()
 time_lapsed = end_time - start_time
 m = "Classes detected: " + str(jason.fetchedClasses)
-colorify.prRed(m)
+colorify.prGreen(m)
 m = "TIME LAPSED: "+str(time_lapsed)+" s"
 colorify.prRed(m)
