@@ -12,6 +12,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import re
 import colorify
+import asyncio
 
 class integration():
     def __init__(self, portal):
@@ -157,10 +158,12 @@ class integration():
         }
         # todo: start the thread here
         # adding the above object in the google calendar
-        self.insertEvent()
 
-    def insertEvent(self):
-        message = "Inserting event: "+ str(self.event["summary"])
+        loop = asyncio.get_event_loop()
+        result = loop.run_until_complete(self.insertEvent())
+
+    async def insertEvent(self):
+        message = "Inserting event: " + str(self.event["summary"])
         colorify.prGreen(message)
 
         event = self.ser.events().insert(
