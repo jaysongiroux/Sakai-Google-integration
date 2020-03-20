@@ -16,8 +16,9 @@ However, this project will be ported over to be used as a service in the cloud.
 ### Todo:
 - Front end
 - Can be run with multiple users
-- Make variables at the top that can be modified to fit the user’s need
-
+- Handling rescheduled events. times/dates.
+    - Could be as simple as another "if" statement in the dupe loop to determine if the times/ date are the same. If not, delete the assignment in google and replace with the pulled one from sakai
+- Work on optimization, with threading and async we've cut down to 9 seconds adding every event.    
 
 ### Setup:
 - Create a JSON file in the base directory called "creds.json"
