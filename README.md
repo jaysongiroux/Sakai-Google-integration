@@ -19,6 +19,7 @@ However, this project will be ported over to be used as a service in the cloud.
 - Handling rescheduled events. times/dates.
     - Could be as simple as another "if" statement in the dupe loop to determine if the times/ date are the same. If not, delete the assignment in google and replace with the pulled one from sakai
 - Work on optimization, with threading and async we've cut down to 9 seconds adding every event.    
+- Instead of pulling X amount of events from google, pull the between the first assignment date and the last assignment date. 
 
 ### Setup:
 - Create a JSON file in the base directory called "creds.json"
