@@ -18,7 +18,6 @@ However, this project will be ported over to be used as a service in the cloud.
 - Can be run with multiple users
 - Make variables at the top that can be modified to fit the user’s need
 
-
 ### Setup:
 - Create a JSON file in the base directory called "creds.json"
 ```
