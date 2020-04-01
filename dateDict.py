@@ -11,6 +11,7 @@ todo:
 
 import re
 from datetime import *
+import colorify
 
 
 def combineTime(dateString):
@@ -31,12 +32,12 @@ def isLate(dateString,id):
 
     # if assignment is due in the future or due same day as ran
     if assignment > current or assignment == current:
-        print("---- Not Late ----")
+        colorify.prGreen("---- Not Late ----")
         print("ID: ", id)
         print("Cal: Assignment Date (mm,dd,yyyy): ",month,"-",day,"-",year)
         return False
     else:
-        print("---- Late ----")
+        colorify.prRed("---- Late ----")
         print("ID: ", id)
         print("Cal: Assignment Date (mm,dd,yyyy): ",month,"-",day,"-",year)
         return True
@@ -66,7 +67,7 @@ def seperateDay(dateString):
 def seperateYear(dateString):
     return re.search("[0-9]{4}",dateString).group()
 
-# Thanks Emily for making sure my months are in order
+# used as a dict for portal when returning months
 def dict(month):
     if "Jan" in month:
         return 1
@@ -114,12 +115,12 @@ def assignIsLate(dateString,id):
 
     # if assignment is due in the future or due same day as ran
     if assignment > current or assignment == current:
-        print("---- Not Late ----")
+        colorify.prGreen("---- Not Late ----")
         print("assignment ID: ",id)
         print("Assign: Assignment Date (mm,dd,yyyy): ", month, "-", day, "-", year)
         return False
     else:
-        print("---- Late ----")
+        colorify.prRed("---- Late ----")
         print("assignment ID: ",id)
         print("Assign: Assignment Date (mm,dd,yyyy): ", month, "-", day, "-", year)
         return True
@@ -141,3 +142,21 @@ def returnDateAndTimeAssign(dateString):
     time = str(hour) + ":" + str(minute)
 
     return dt, time
+
+# return true if the event has been res
+# todo: finish this function. right now this seperates the google time down next will need comparisons for date and time
+def isResched(portalTime, portalDate, google):
+    '''
+    split the google format into comparable chunks using the date time library
+    '''
+    googleTime = re.search("T[0-9]{2}:[0-9]{2}").group().strip("T")
+
+    print("checking")
+    return True
+
+
+# test information
+portalTime = "04:00"
+portalDate = "2020-5-5"
+googleStart = "2020-05-05T04:00:00-04:00"
+isResched(portalTime,portalDate,googleStart)

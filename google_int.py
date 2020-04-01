@@ -12,6 +12,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import re
 import colorify
+import dateDict
 
 class integration():
     def __init__(self, portal):
@@ -29,6 +30,7 @@ class integration():
         self.tempPortal = None
         self.tempGoogle = None
         self.portalInfo = portal
+        self.timeZone = "America/New_York"
 
 
     def creds(self):
@@ -100,6 +102,24 @@ class integration():
 
                 # checks if there are any duplicates
                 if str(self.tempPortal["assignmentId"]) in str(self.tempGoogle["summary"]):
+                    '''
+                    we're checking if the assignment has been rescheduled
+                    for tempPortal check: due and DueTime
+                    for tempGoogle check: start[DateTime] format: 2020-04-21T02:00:00-04:00
+                    '''
+
+                    print("temp portal",self.tempPortal)
+                    print("summary", self.tempGoogle)
+
+
+
+                    # if returns that is has been rescheduled
+                    if dateDict.isResched(self.tempPortal["due"],self.tempPortal["dueTime"],
+                                          self.tempGoogle["start"]["dateTime"]):
+                        # delete the event in the google calendat then put it back in at the correct time thats been
+                        # pulled from the portal
+
+                        colorify.prRed("This event has been rescheduled")
                     dupe = True
                     dup.append(self.tempPortal["assignmentId"])
                     colorify.prRed("--- DUPLICATE DETECTED ---")
@@ -142,11 +162,11 @@ class integration():
             'description': self.tempPortal["entityTitle"],
             'start': {
                 'dateTime': startTime,
-                'timeZone': 'America/New_York',
+                'timeZone': self.timeZone,
             },
             'end': {
                 'dateTime': endTime,
-                'timeZone': 'America/New_York',
+                'timeZone': self.timeZone,
             },
             'reminders': {
                 'useDefault': False,
