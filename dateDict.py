@@ -11,6 +11,7 @@ todo:
 
 import re
 from datetime import *
+import colorify
 
 
 def combineTime(dateString):
@@ -31,12 +32,12 @@ def isLate(dateString,id):
 
     # if assignment is due in the future or due same day as ran
     if assignment > current or assignment == current:
-        print("---- Not Late ----")
+        colorify.prGreen("---- Not Late ----")
         print("ID: ", id)
         print("Cal: Assignment Date (mm,dd,yyyy): ",month,"-",day,"-",year)
         return False
     else:
-        print("---- Late ----")
+        colorify.prRed("---- Late ----")
         print("ID: ", id)
         print("Cal: Assignment Date (mm,dd,yyyy): ",month,"-",day,"-",year)
         return True
@@ -114,12 +115,12 @@ def assignIsLate(dateString,id):
 
     # if assignment is due in the future or due same day as ran
     if assignment > current or assignment == current:
-        print("---- Not Late ----")
+        colorify.prGreen("---- Not Late ----")
         print("assignment ID: ",id)
         print("Assign: Assignment Date (mm,dd,yyyy): ", month, "-", day, "-", year)
         return False
     else:
-        print("---- Late ----")
+        colorify.prRed("---- Late ----")
         print("assignment ID: ",id)
         print("Assign: Assignment Date (mm,dd,yyyy): ", month, "-", day, "-", year)
         return True

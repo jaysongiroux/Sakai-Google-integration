@@ -151,7 +151,7 @@ class main():
 
 
 # define the name of your classes to be scanned through and given a JSON file
-classes = ["COMSC.492.01-20/SP Integ Senior Design II"]
+classes = ["COMSC.492.01-20/SP Integ Senior Design II", "COMSC.410.01-20/SP Artificial Intelligence", "COMSC.440.01-20/SP LangTranslation/Compiler Dsgn", "PHYS.330.01-20/SP Intro Phys Oceanography" ]
 
 start_time = time.time()
 
