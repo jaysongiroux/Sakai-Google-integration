@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+<!--    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/login.css"  media="screen,projection"/>
+    <script type="text/javascript" src="js/login.js"></script>
+
+    <title>Title here</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="LoginTitle">Login</h2>
+      <h8 class="loginDescription">Login using your school's portal login credentials</h8>
+      <div class="c1">
+        <input placeholder="https://bridges.rwu.edu/" id="URL" type="text" class="validate">
+        <label for="URL" id="urlLabel">Portal URL</label>
+      </div>
+      <div class="c2">
+        <input placeholder="johnsmith123" id="username" type="text" class="validate">
+        <label for="username" id="usernameLabel">User Name</label>
+      </div>
+      <div class="c3">
+        <input id="password" type="password" class="validate">
+        <label for="password" id="passwordLabel">Password</label>
+      </div>
+
+        <br><br>
+      <button class="btn waves-effect waves-light" type="submit" name="action" onclick="validateLogin()">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>
