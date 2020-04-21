@@ -156,7 +156,7 @@ def isResched(portalTime, portalDate, google):
 
 
 # test information
-portalTime = "04:00"
-portalDate = "2020-5-5"
-googleStart = "2020-05-05T04:00:00-04:00"
-isResched(portalTime,portalDate,googleStart)
+# portalTime = "04:00"
+# portalDate = "2020-5-5"
+# googleStart = "2020-05-05T04:00:00-04:00"
+# isResched(portalTime,portalDate,googleStart)

@@ -112,14 +112,14 @@ class integration():
                     print("summary", self.tempGoogle)
 
 
-
+                    #todo: reschedule events
                     # if returns that is has been rescheduled
-                    if dateDict.isResched(self.tempPortal["due"],self.tempPortal["dueTime"],
-                                          self.tempGoogle["start"]["dateTime"]):
+                    # if dateDict.isResched(self.tempPortal["due"],self.tempPortal["dueTime"],
+                    #                       self.tempGoogle["start"]["dateTime"]):
                         # delete the event in the google calendat then put it back in at the correct time thats been
                         # pulled from the portal
 
-                        colorify.prRed("This event has been rescheduled")
+                        # colorify.prRed("This event has been rescheduled")
                     dupe = True
                     dup.append(self.tempPortal["assignmentId"])
                     colorify.prRed("--- DUPLICATE DETECTED ---")
